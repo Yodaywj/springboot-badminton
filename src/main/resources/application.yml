@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    include: dev
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${ip}/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: Ywj20001231!
+
+  redis:
+    host: ${ip}
+    port: 6379
+    database: 0
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.example.demo.mapper
+  configuration:
+    map-underscore-to-camel-case: true
+
+ip:  172.20.54.133
+
+logging:
+  level:
+    com:
+      example:
+        demo:
+          mapper: DEBUG
+    org:
+      apache:
+        ibatis:
+          executor:
+            BaseExecutor: DEBUG
