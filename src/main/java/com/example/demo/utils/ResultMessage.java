@@ -26,8 +26,7 @@ public class ResultMessage extends HashMap<String, Object> {
         if (message != null) put("message", message);
     }
 
-    public ResultMessage setOther(String key, Object value) {
+    public void setOther(String key, Object value) {
         if (key != null && value != null) put(key, value);
-        return this;
     }
 }

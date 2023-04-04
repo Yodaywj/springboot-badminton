@@ -8,6 +8,6 @@
         values (#{mail}, #{password}, #{username}, #{nickname}, #{phone}, #{gender})
     </insert>
     <select id="login" resultType="com.example.demo.model.User">
-        select * from user_account where username = #{username} and password = #{password}
+        select mail,password,username,nickname,phone,gender,privilege from user_account where username = #{username} and password = #{password}
     </select>
 </mapper>

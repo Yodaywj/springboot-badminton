@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.BulletinMapper">
+    <insert id="add">
+        insert into bulletin_board DEFAULT VALUES;
+    </insert>
+    <update id="save" parameterType="com.example.demo.model.Bulletin">
+        update bulletin_board set content = #{content}, title = #{title} WHERE id = #{id};
+    </update>
+    <delete id="delete">
+        delete from bulletin_board where id = #{id}
+    </delete>
+    <select id="show" resultType="com.example.demo.model.Bulletin">
+        select id, title, content from bulletin_board
+    </select>
+</mapper>
