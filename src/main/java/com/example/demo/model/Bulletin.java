@@ -9,4 +9,6 @@ public class Bulletin {
     private String content;
 
     private String title;
+
+    private String time;
 }

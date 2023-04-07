@@ -18,17 +18,15 @@ public class UserController {
     @Resource
     private UserService userService;
     private final ObjectMapper mapper = new ObjectMapper();
-    private ResultMessage resultMessage = new ResultMessage();
     @PostMapping("/register")
     public ResultMessage register(@RequestBody User newUser) {
         try {
             userService.register(newUser);
-            resultMessage = ResultMessage.success("注册成功");
+            ResultMessage resultMessage = ResultMessage.success("注册成功");
             resultMessage.setOther("用户名",newUser.getUsername());
             return resultMessage;
         }catch (Exception e){
-            resultMessage = ResultMessage.failure("用户名已存在");
-            return resultMessage;
+            return ResultMessage.failure("用户名已存在");
         }
     }
     @PostMapping("/login")
@@ -39,12 +37,11 @@ public class UserController {
             String password = node.get("password").asText();
             User user = userService.login(username,password);
             session.setAttribute("user",user);
-            resultMessage = ResultMessage.success("登录成功");
+            ResultMessage resultMessage = ResultMessage.success("登录成功");
             resultMessage.setOther("nickname",user.getNickname());
             return resultMessage;
         }catch (Exception e){
-            resultMessage = ResultMessage.failure("登录失败");
-            return resultMessage;
+            return ResultMessage.failure("登录失败");
         }
     }
     @GetMapping("/session")
@@ -52,19 +49,17 @@ public class UserController {
         try {
             User user = (User) session.getAttribute("user");
             if (user == null) throw new Exception();
-            resultMessage = ResultMessage.success("已登录");
+            ResultMessage resultMessage = ResultMessage.success("已登录");
             resultMessage.setOther("user",user);
             return resultMessage;
         }catch (Exception e){
-            resultMessage = ResultMessage.failure("未登录或登录超时");
-            return resultMessage;
+            return ResultMessage.failure("未登录或登录超时");
         }
     }
     @DeleteMapping("/logout")
     public ResultMessage logout(HttpSession session) {
         session.removeAttribute("user");
-        resultMessage = ResultMessage.success("退出成功");
-        return resultMessage;
+        return ResultMessage.success("退出成功");
     }
 }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface BulletinBoardService {
     void delete (int id);
-    void save (int id, String content, String title);
-    void add ();
+    void save (Bulletin bulletin);
+    void add (String time);
     List<Bulletin> show ();
 }

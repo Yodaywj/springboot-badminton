@@ -6,6 +6,8 @@ import com.example.demo.service.BulletinBoardService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -18,13 +20,13 @@ public class BulletinBoardServiceImpl implements BulletinBoardService {
     }
 
     @Override
-    public void save(int id, String content, String title) {
-        bulletinMapper.save(id, content, title);
+    public void save(Bulletin bulletin) {
+        bulletinMapper.save(bulletin);
     }
 
     @Override
-    public void add() {
-        bulletinMapper.add();
+    public void add(String time) {
+        bulletinMapper.add(time);
     }
 
     @Override

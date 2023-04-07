@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.BulletinMapper">
     <insert id="add">
-        insert into bulletin_board DEFAULT VALUES;
+        insert into bulletin_board (id, title, content, time) VALUES (DEFAULT, DEFAULT, DEFAULT, #{time});
     </insert>
-    <update id="save" parameterType="com.example.demo.model.Bulletin">
+    <update id="save" parameterType="Bulletin">
         update bulletin_board set content = #{content}, title = #{title} WHERE id = #{id};
     </update>
     <delete id="delete">
         delete from bulletin_board where id = #{id}
     </delete>
-    <select id="show" resultType="com.example.demo.model.Bulletin">
-        select id, title, content from bulletin_board
+    <select id="show" resultType="Bulletin">
+        select id, title, content, time from bulletin_board
     </select>
 </mapper>
