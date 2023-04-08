@@ -58,7 +58,7 @@ public class UserController {
     }
     @DeleteMapping("/logout")
     public ResultMessage logout(HttpSession session) {
-        session.removeAttribute("user");
+        userService.logout(session);
         return ResultMessage.success("退出成功");
     }
 }
