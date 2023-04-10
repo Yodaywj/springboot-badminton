@@ -12,7 +12,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${ip}/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password: 1
+    password: Ywj20001231!
 
   redis:
     host: ${ip}
@@ -21,17 +21,17 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.example.demo.model
+  type-aliases-package: com.ywj.badminton.model
   configuration:
     map-underscore-to-camel-case: true
 
-ip: 172.20.58.211
+ip: 172.25.45.55
 
 logging:
   level:
     com:
-      example:
-        demo:
+      ywj:
+        badminton:
           mapper: DEBUG
     org:
       apache:
