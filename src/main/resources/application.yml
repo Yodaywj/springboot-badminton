@@ -25,7 +25,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-ip: 172.25.45.55
+ip: 172.25.32.107
 
 logging:
   level:

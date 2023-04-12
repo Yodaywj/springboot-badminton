@@ -14,7 +14,7 @@
                            WHERE id = #{id};
     </update>
     <select id="show" resultType="Stadium">
-        SELECT id,stadium_name,province,city,court_number,address,phone,remarks,owner FROM stadium where owner = #{owner}
+        SELECT id,stadium_name,province,city,court_number,address,phone,remarks,owner FROM stadium where owner = #{owner} order by `order` desc;
     </select>
     <delete id="delete">
         delete from stadium where id = #{id}

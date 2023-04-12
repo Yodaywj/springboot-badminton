@@ -10,4 +10,7 @@
     <select id="login" resultType="User">
         select mail,password,username,nickname,phone,gender,privilege from user_account where username = #{username} and password = #{password}
     </select>
+    <select id="showUserInfo" resultType="User">
+        select mail,password,username,nickname,phone,gender,privilege from user_account where username = #{username}
+    </select>
 </mapper>

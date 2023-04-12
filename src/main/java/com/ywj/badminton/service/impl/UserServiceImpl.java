@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
     public void logout(HttpSession session) {
         session.removeAttribute("user");
     }
+
+    @Override
+    public User showUserInfo(String username) {
+        return userMapper.showUserInfo(username);
+    }
 }

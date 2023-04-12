@@ -6,6 +6,7 @@ import com.ywj.badminton.utils.ResultMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping("/member")
@@ -37,9 +38,11 @@ public class MemberController {
             return ResultMessage.failure("操作失败,该会员已存在");
         }
     }
-    @DeleteMapping("/delete/{stadiumId}/{memberName}")
-    public ResultMessage delete(@PathVariable String stadiumId, @PathVariable String memberName){
-        memberService.delete(stadiumId,memberName);
+    @DeleteMapping("/delete/{stadiumId}/{members}")
+    public ResultMessage delete(@PathVariable String stadiumId, @PathVariable List<String> members){
+        for (String memberName : members) {
+            memberService.delete(stadiumId,memberName);
+        }
         return ResultMessage.success("操作成功");
     }
 }

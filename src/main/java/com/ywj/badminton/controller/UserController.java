@@ -5,6 +5,7 @@ import com.ywj.badminton.service.UserService;
 import com.ywj.badminton.utils.ResultMessage;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -58,6 +59,14 @@ public class UserController {
     public ResultMessage logout(HttpSession session) {
         userService.logout(session);
         return ResultMessage.success("退出成功");
+    }
+    @GetMapping("/showUserInfo")
+    public ResultMessage showUserInfo(@RequestParam("memberName") String username){
+        User user = userService.showUserInfo(username);
+        ResultMessage resultMessage = new ResultMessage();
+        resultMessage.setOther("user", user);
+        return resultMessage;
+
     }
 }
 
