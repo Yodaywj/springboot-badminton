@@ -9,4 +9,5 @@ public interface StadiumService {
     List<Stadium> show(String owner);
     void add(Stadium stadium);
     void delete(String id);
+    String getName(String id);
 }

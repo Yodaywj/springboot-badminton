@@ -14,7 +14,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/stadium")
 public class StadiumController {
-        @Resource
+    @Resource
     private StadiumService stadiumService;
     private final ObjectMapper mapper = new ObjectMapper();
     @PostMapping("/modify")
@@ -61,5 +61,11 @@ public class StadiumController {
         }catch (Exception e){
             return ResultMessage.failure("新增失败");
         }
+    }
+    @GetMapping("/getName/{id}")
+    public ResultMessage show(@PathVariable String id){
+        ResultMessage resultMessage = new ResultMessage();
+        resultMessage.setOther("stadiumName",stadiumService.getName(id));
+        return resultMessage;
     }
 }

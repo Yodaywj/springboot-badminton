@@ -3,7 +3,6 @@ package com.ywj.badminton.controller;
 import com.ywj.badminton.model.Bulletin;
 import com.ywj.badminton.service.BulletinBoardService;
 import com.ywj.badminton.utils.ResultMessage;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

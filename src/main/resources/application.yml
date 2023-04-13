@@ -8,6 +8,19 @@ spring:
   profiles:
     include: dev
 
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: yangwenjun.zj@qq.com
+    password: zdrsfdsholacbgfb
+    default-encoding: UTF-8
+    properties:
+      mail:
+        debug: true
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://${ip}/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
@@ -15,7 +28,7 @@ spring:
     password: Ywj20001231!
 
   redis:
-    host: ${ip}
+    host: 20.77.65.128
     port: 6379
     database: 0
 
@@ -25,7 +38,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-ip: 172.25.32.107
+ip: 172.28.54.116
 
 logging:
   level:

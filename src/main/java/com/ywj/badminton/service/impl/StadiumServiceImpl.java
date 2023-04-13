@@ -30,4 +30,9 @@ public class StadiumServiceImpl implements StadiumService {
     public void delete(String id) {
         stadiumMapper.delete(id);
     }
+
+    @Override
+    public String getName(String id) {
+        return stadiumMapper.getName(id);
+    }
 }

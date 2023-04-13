@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywj.badminton.mapper.CourtMapper">
+    <insert id="pushNewCourts" parameterType="court">
+        insert into court (id, stadium_id, state, countdown, light) VALUES (#{id}, #{stadiumId}, #{state}, #{countdown},#{light});
+    </insert>
+    <update id="switchLight">
+        update court set light=#{light} where stadium_id = #{stadiumId}
+        <if test="id != 0">
+            and id = #{id}
+        </if>
+    </update>
+    <update id="setNewCourt" parameterType="court">
+        update court set countdown= #{countdown},state=#{state} where stadium_id = #{stadiumId} and id = #{id};
+    </update>
+    <!--    <update id="save" parameterType="Bulletin">-->
+<!--        update bulletin_board set content = #{content}, title = #{title} WHERE id = #{id};-->
+<!--    </update>-->
+    <delete id="deleteAll">
+        delete from court where stadium_id = #{stadiumId};
+    </delete>
+    <select id="getAll" resultType="Court">
+        select id, stadium_id, state, countdown,light from court where stadium_id = #{stadiumId} order by id ;
+    </select>
+</mapper>
