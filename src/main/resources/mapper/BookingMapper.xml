@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ywj.badminton.mapper.BookingMapper">
     <insert id="bookCourt" parameterType="booking">
-        insert into booking (stadium_id,court_id,username,duration,time,remarks)
-        values (#{stadiumId}, #{courtId}, #{username}, #{duration}, #{time}, #{remarks});
+        insert into booking (stadium_id,court_id,username,duration,time,remarks,state)
+        values (#{stadiumId}, #{courtId}, #{username}, #{duration}, #{time}, #{remarks},#{state});
     </insert>
 <!--    <update id="save" parameterType="Bulletin">-->
 <!--        update bulletin_board set content = #{content}, title = #{title} WHERE id = #{id};-->
