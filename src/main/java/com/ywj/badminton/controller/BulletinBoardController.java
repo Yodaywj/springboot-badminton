@@ -41,6 +41,7 @@ public class BulletinBoardController {
             bulletinBoardService.save(data);
             return ResultMessage.success("编辑成功");
         }catch (Exception e){
+            e.printStackTrace();
             return ResultMessage.failure("编辑失败");
         }
     }

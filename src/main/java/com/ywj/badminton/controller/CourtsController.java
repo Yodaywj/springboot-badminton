@@ -7,9 +7,11 @@ import com.ywj.badminton.model.Court;
 import com.ywj.badminton.service.CourtsService;
 import com.ywj.badminton.service.MyMailService;
 import com.ywj.badminton.utils.ResultMessage;
+import com.ywj.badminton.utils.TimeDifferenceCalculator;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -29,7 +31,11 @@ public class CourtsController {
     }
     @GetMapping("/getAll/{id}")
     public ResultMessage getAll(@PathVariable String id){
+        LocalDateTime now = LocalDateTime.now();
         List<Court> courts = courtsService.getAll(id);
+        for (Court court : courts){
+            court.setCountdown(TimeDifferenceCalculator.calculate(court.getCountdown(),now));
+        }
         ResultMessage resultMessage = new ResultMessage();
         resultMessage.setOther("courts", courts);
         return resultMessage;
@@ -61,6 +67,8 @@ public class CourtsController {
     public ResultMessage setNewCourt(@RequestBody Court court) {
         courtsService.setNewCourt(court);
         int id = court.getId();
+        LocalDateTime now = LocalDateTime.now();
+        court.setCountdown(TimeDifferenceCalculator.calculate(court.getCountdown(),now));
         ResultMessage resultMessage = ResultMessage.success("设置"+id+"号场成功");
         resultMessage.setOther("countdown",court.getCountdown());
         return resultMessage;

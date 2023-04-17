@@ -6,7 +6,7 @@ server:
 
 spring:
   profiles:
-    include: dev
+    active: production
 
   mail:
     host: smtp.qq.com
@@ -23,7 +23,7 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${ip}/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://${ip}:3306/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: Y
 
@@ -38,7 +38,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-ip: 172.28.54.116
+ip: 172.28.59.27
 
 logging:
   level:
