@@ -31,4 +31,9 @@ public class BookingServiceImpl implements BookingService {
     public void bookCourt(Booking booking) {
         bookingMapper.bookCourt(booking);
     }
+
+    @Override
+    public List<Booking> myBooking(String username) {
+        return bookingMapper.myBooking(username);
+    }
 }

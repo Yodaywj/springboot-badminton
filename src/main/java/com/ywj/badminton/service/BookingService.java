@@ -10,4 +10,5 @@ public interface BookingService {
     long countAll();
     List<Stadium> filter(String stadiumName,int courtNumber,String province, String city);
     void bookCourt(Booking booking);
+    List<Booking> myBooking(String username);
 }

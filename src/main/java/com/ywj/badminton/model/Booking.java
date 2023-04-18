@@ -17,4 +17,6 @@ public class Booking {
     private String remarks;
 
     private String state;
+
+    private String stadiumName;
 }
