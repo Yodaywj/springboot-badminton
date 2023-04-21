@@ -35,4 +35,9 @@ public class StadiumServiceImpl implements StadiumService {
     public String getName(String id) {
         return stadiumMapper.getName(id);
     }
+
+    @Override
+    public Stadium getStadium(String id) {
+        return stadiumMapper.getStadium(id);
+    }
 }

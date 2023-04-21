@@ -18,6 +18,12 @@ public class ResultMessage extends HashMap<String, Object> {
         return response;
     }
 
+    public static ResultMessage data(String name,Object data){
+        ResultMessage response = new ResultMessage();
+        response.setOther(name,data);
+        return response;
+    }
+
     public void setResult(Boolean success) {
         if (success != null) put("result", success);
     }

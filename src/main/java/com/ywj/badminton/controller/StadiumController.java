@@ -63,9 +63,15 @@ public class StadiumController {
         }
     }
     @GetMapping("/getName/{id}")
-    public ResultMessage show(@PathVariable String id){
+    public ResultMessage getName(@PathVariable String id){
         ResultMessage resultMessage = new ResultMessage();
         resultMessage.setOther("stadiumName",stadiumService.getName(id));
+        return resultMessage;
+    }
+    @GetMapping("/getStadium/{id}")
+    public ResultMessage getStadium(@PathVariable String id){
+        ResultMessage resultMessage = new ResultMessage();
+        resultMessage.setOther("stadium",stadiumService.getStadium(id));
         return resultMessage;
     }
 }

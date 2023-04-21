@@ -54,4 +54,24 @@ public class BookingController {
         resultMessage.setOther("myBooking",myBooking);
         return resultMessage;
     }
+    @DeleteMapping("/deleteBooking/{id}")
+    public ResultMessage deleteBooking(@PathVariable String id){
+        bookingService.deleteBooking(id);
+        return ResultMessage.success("取消预订成功");
+    }
+    @GetMapping("/bookingManage/{stadiumId}")
+    public ResultMessage bookingManage(@PathVariable String stadiumId){
+        List<Booking> bookings = bookingService.bookingManage(stadiumId);
+        return ResultMessage.data("bookings",bookings);
+    }
+    @PatchMapping("/setBooking")
+    public ResultMessage setBooking(@RequestParam String id,@RequestParam int courtId,@RequestParam String state){
+        bookingService.setBooking(id,courtId,state);
+        return ResultMessage.success("设置成功");
+    }
+    @PatchMapping("/hideBooking/{id}")
+    public ResultMessage hideBooking(@PathVariable String id){
+        bookingService.hideBooking(id);
+        return ResultMessage.success("删除成功");
+    }
 }

@@ -4,6 +4,8 @@ import lombok.Data;
 
 @Data
 public class Booking {
+    private String id;
+
     private String stadiumId;
 
     private int courtId;
@@ -12,7 +14,7 @@ public class Booking {
 
     private String username;
 
-    private int duration;
+    private float duration;
 
     private String remarks;
 

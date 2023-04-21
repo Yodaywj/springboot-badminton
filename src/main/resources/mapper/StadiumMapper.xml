@@ -19,6 +19,9 @@
     <select id="getName" resultType="java.lang.String">
         select stadium_name from stadium where id = #{id};
     </select>
+    <select id="getStadium" resultType="Stadium">
+        SELECT id,stadium_name,province,city,court_number,address,phone,remarks,owner FROM stadium where id = #{id};
+    </select>
     <delete id="delete">
         delete from stadium where id = #{id}
     </delete>

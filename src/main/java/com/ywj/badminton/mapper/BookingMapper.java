@@ -11,4 +11,8 @@ public interface BookingMapper {
     List<Stadium> filter(String stadiumName,int courtNumber,String province, String city);
     void bookCourt(Booking booking);
     List<Booking> myBooking(String username);
+    void deleteBooking(String id);
+    List<Booking> bookingManage(String stadiumId);
+    void setBooking(String id,int courtId,String state);
+    void hideBooking(String id);
 }

@@ -10,4 +10,5 @@ public interface StadiumMapper {
     void add(Stadium stadium);
     void delete(String id);
     String getName(String id);
+    Stadium getStadium(String id);
 }

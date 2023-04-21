@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
+
 @Service
 public class BookingServiceImpl implements BookingService {
     @Resource
@@ -29,11 +31,34 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void bookCourt(Booking booking) {
+        String id = UUID.randomUUID().toString();
+        String username = booking.getUsername();
+        booking.setId(username+"_"+id);
         bookingMapper.bookCourt(booking);
     }
 
     @Override
     public List<Booking> myBooking(String username) {
         return bookingMapper.myBooking(username);
+    }
+
+    @Override
+    public void deleteBooking(String id) {
+        bookingMapper.deleteBooking(id);
+    }
+
+    @Override
+    public List<Booking> bookingManage(String stadiumId) {
+        return bookingMapper.bookingManage(stadiumId);
+    }
+
+    @Override
+    public void setBooking(String id, int courtId, String state) {
+        bookingMapper.setBooking(id,courtId,state);
+    }
+
+    @Override
+    public void hideBooking(String id) {
+        bookingMapper.hideBooking(id);
     }
 }
