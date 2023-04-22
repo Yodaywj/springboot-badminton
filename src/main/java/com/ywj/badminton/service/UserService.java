@@ -13,4 +13,5 @@ public interface UserService {
     void logout(HttpSession session);
 
     User showUserInfo(String username);
+    void editUser(User user);
 }

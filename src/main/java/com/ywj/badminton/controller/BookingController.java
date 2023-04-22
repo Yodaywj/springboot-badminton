@@ -74,4 +74,9 @@ public class BookingController {
         bookingService.hideBooking(id);
         return ResultMessage.success("删除成功");
     }
+    @GetMapping("/bookingsForCourt")
+    public ResultMessage bookingsForCourt(@RequestParam String stadiumId,@RequestParam int courtId){
+        List<Booking> bookings = bookingService.bookingsForCourt(stadiumId,courtId);
+        return ResultMessage.data("bookings",bookings);
+    }
 }

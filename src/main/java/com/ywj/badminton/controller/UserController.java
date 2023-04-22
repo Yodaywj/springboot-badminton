@@ -67,5 +67,21 @@ public class UserController {
         return resultMessage;
 
     }
+    @PatchMapping("/editUser")
+    public ResultMessage editUser(@RequestBody User user,HttpSession session){
+        try {
+            userService.editUser(user);
+            User current = (User) session.getAttribute("user");
+            User newUser = userService.login(current.getUsername(), current.getPassword());
+            session.setAttribute("user",newUser);
+            ResultMessage resultMessage = new ResultMessage();
+            resultMessage.setOther("user",newUser);
+            resultMessage.setResult(true);
+            resultMessage.setMessage("编辑成功");
+            return resultMessage;
+        }catch (Exception e){
+            return ResultMessage.failure("编辑失败");
+        }
+    }
 }
 

@@ -42,4 +42,7 @@
     <select id="bookingManage" resultType="com.ywj.badminton.model.Booking">
         select id,stadium_id,court_id,time,remarks,duration,state,stadium_name from booking where stadium_id = #{stadiumId} and state != '删除' order by 'time';
     </select>
+    <select id="bookingsForCourt" resultType="com.ywj.badminton.model.Booking">
+        select id,time,remarks,duration,state,username from booking where stadium_id = #{stadiumId} and court_id = #{courtId};
+    </select>
 </mapper>

@@ -61,4 +61,9 @@ public class BookingServiceImpl implements BookingService {
     public void hideBooking(String id) {
         bookingMapper.hideBooking(id);
     }
+
+    @Override
+    public List<Booking> bookingsForCourt(String stadiumId, int courtId) {
+        return bookingMapper.bookingsForCourt(stadiumId,courtId);
+    }
 }

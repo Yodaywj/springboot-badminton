@@ -7,6 +7,13 @@
         insert into user_account(mail,password,username,nickname,phone,gender)
         values (#{mail}, #{password}, #{username}, #{nickname}, #{phone}, #{gender})
     </insert>
+    <update id="editUser" parameterType="User">
+        update user_account set mail = #{mail},
+                                phone = #{phone},
+                                nickname = #{nickname},
+                                gender = #{gender}
+                                where username = #{username};
+    </update>
     <select id="login" resultType="User">
         select mail,password,username,nickname,phone,gender,privilege from user_account where username = #{username} and password = #{password}
     </select>

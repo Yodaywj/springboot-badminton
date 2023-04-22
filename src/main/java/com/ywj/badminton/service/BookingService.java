@@ -15,4 +15,5 @@ public interface BookingService {
     List<Booking> bookingManage(String stadiumId);
     void setBooking(String id,int courtId,String state);
     void hideBooking(String id);
+    List<Booking> bookingsForCourt(String stadiumId,int courtId);
 }

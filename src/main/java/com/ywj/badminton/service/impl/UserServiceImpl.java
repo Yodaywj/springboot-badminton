@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
     public User showUserInfo(String username) {
         return userMapper.showUserInfo(username);
     }
+
+    @Override
+    public void editUser(User user) {
+        userMapper.editUser(user);
+    }
 }
