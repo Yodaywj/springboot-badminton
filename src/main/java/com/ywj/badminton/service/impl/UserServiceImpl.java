@@ -37,4 +37,9 @@ public class UserServiceImpl implements UserService {
     public void editUser(User user) {
         userMapper.editUser(user);
     }
+
+    @Override
+    public String captchaForResetting(String username, String mail) {
+        return null;
+    }
 }

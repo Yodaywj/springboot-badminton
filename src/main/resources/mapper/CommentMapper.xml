@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywj.badminton.mapper.CommentMapper">
+    <insert id="send" parameterType="Comment">
+        insert into comment (id, username, content, time,nickname) VALUES (#{id}, #{username}, #{content}, #{time},#{nickname});
+    </insert>
+    <delete id="delete">
+        delete from comment where id = #{id}
+    </delete>
+    <select id="showComment" resultType="Comment">
+        select id, time, content, username, nickname from comment order by time DESC ;
+    </select>
+</mapper>

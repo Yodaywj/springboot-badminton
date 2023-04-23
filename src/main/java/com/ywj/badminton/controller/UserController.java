@@ -83,5 +83,9 @@ public class UserController {
             return ResultMessage.failure("编辑失败");
         }
     }
+//    @GetMapping("/captchaForResetting")
+//    public ResultMessage captchaForResetting(String username,String mail){
+//
+//    }
 }
 
