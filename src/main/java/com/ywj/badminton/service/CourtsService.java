@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface CourtsService {
     void pushNewCourts(String stadiumId, int number);
-    List<Court> getAll(String stadiumId);
+    Court getCourt(String stadiumId ,int id);
     void deleteAll(String stadiumId);
     void switchLight(String stadiumId, int id, String light);
-    void setNewCourt(Court court);
+    Court setNewCourt(Court court);
 }

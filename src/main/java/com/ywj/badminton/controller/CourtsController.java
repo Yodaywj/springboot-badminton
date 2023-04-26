@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -29,10 +30,13 @@ public class CourtsController {
         courtsService.pushNewCourts(stadiumId,number);
         return ResultMessage.success("目前有"+number+"片场地");
     }
-    @GetMapping("/getAll/{id}")
-    public ResultMessage getAll(@PathVariable String id){
+    @GetMapping("/getAll/{id}/{courtNumber}")
+    public ResultMessage getAll(@PathVariable String id,@PathVariable int courtNumber){
         LocalDateTime now = LocalDateTime.now();
-        List<Court> courts = courtsService.getAll(id);
+        List<Court> courts = new ArrayList<>();
+        for (int i = 1;i <= courtNumber; i++){
+            courts.add(courtsService.getCourt(id,i));
+        }
         for (Court court : courts){
             court.setCountdown(TimeDifferenceCalculator.calculate(court.getCountdown(),now));
         }
@@ -51,12 +55,16 @@ public class CourtsController {
             JsonNode node = mapper.readTree(data);
             String stadiumId = node.get("stadiumId").asText();
             int id = node.get("id").asInt();
+            int courtNumber = node.get("courtNumber").asInt();
             String light = node.get("light").asText();
             String option = light.equals("开启中")? "开启":"关闭";
-            courtsService.switchLight(stadiumId,id,light);
             if (id == 0){
+                for (int i=1; i<=courtNumber;i++){
+                    courtsService.switchLight(stadiumId,i,light);
+                }
                 return ResultMessage.success(option+"所有场地灯光成功");
             }else {
+                courtsService.switchLight(stadiumId,id,light);
                 return ResultMessage.success(option+id+"号场灯光成功");
             }
         }catch (Exception e){
@@ -65,7 +73,7 @@ public class CourtsController {
     }
     @PatchMapping("/setNewCourt")
     public ResultMessage setNewCourt(@RequestBody Court court) {
-        courtsService.setNewCourt(court);
+        court = courtsService.setNewCourt(court);
         int id = court.getId();
         LocalDateTime now = LocalDateTime.now();
         court.setCountdown(TimeDifferenceCalculator.calculate(court.getCountdown(),now));

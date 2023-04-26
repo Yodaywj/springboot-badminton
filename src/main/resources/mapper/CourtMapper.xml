@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ywj.badminton.mapper.CourtMapper">
-    <insert id="pushNewCourts" parameterType="court">
+    <insert id="pushNewCourts" parameterType="Court">
         insert into court (id, stadium_id, state, countdown, light) VALUES (#{id}, #{stadiumId}, #{state}, #{countdown},#{light});
     </insert>
     <update id="switchLight">
@@ -12,7 +12,7 @@
             and id = #{id}
         </if>
     </update>
-    <update id="setNewCourt" parameterType="court">
+    <update id="setNewCourt" parameterType="Court">
         update court set countdown= #{countdown},state=#{state} where stadium_id = #{stadiumId} and id = #{id};
     </update>
     <!--    <update id="save" parameterType="Bulletin">-->
@@ -21,7 +21,7 @@
     <delete id="deleteAll">
         delete from court where stadium_id = #{stadiumId};
     </delete>
-    <select id="getAll" resultType="Court">
-        select id, stadium_id, state, countdown,light from court where stadium_id = #{stadiumId} order by id ;
+    <select id="getCourt" resultType="Court">
+        select id, stadium_id, state, countdown,light from court where stadium_id = #{stadiumId} and id = #{id};
     </select>
 </mapper>

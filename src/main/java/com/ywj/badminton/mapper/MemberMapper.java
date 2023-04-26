@@ -9,4 +9,5 @@ public interface MemberMapper {
     void edit(Member member);
     void delete (String stadiumId, String memberName);
     void add (Member member);
+    void deleteAll(String stadiumId);
 }

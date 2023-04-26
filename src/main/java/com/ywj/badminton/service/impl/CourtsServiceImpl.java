@@ -3,13 +3,15 @@ package com.ywj.badminton.service.impl;
 import com.ywj.badminton.mapper.CourtMapper;
 import com.ywj.badminton.model.Court;
 import com.ywj.badminton.service.CourtsService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Service
 public class CourtsServiceImpl implements CourtsService {
@@ -29,8 +31,9 @@ public class CourtsServiceImpl implements CourtsService {
     }
 
     @Override
-    public List<Court> getAll(String stadiumId) {
-        return courtMapper.getAll(stadiumId);
+    @Cacheable(value = "courts",key = "#stadiumId+#id")
+    public Court getCourt(String stadiumId,int id) {
+        return courtMapper.getCourt(stadiumId,id);
     }
 
     @Override
@@ -39,12 +42,14 @@ public class CourtsServiceImpl implements CourtsService {
     }
 
     @Override
-    public void switchLight(String stadiumId, int id,String light) {
+    @CacheEvict(value = "courts",key = "#stadiumId+#id")
+    public void switchLight(String stadiumId, int id, String light) {
         courtMapper.switchLight(stadiumId,id,light);
     }
 
     @Override
-    public void setNewCourt(Court court) {
+    @CachePut(value = "courts",key = "#court.stadiumId+#court.id")
+    public Court setNewCourt(Court court) {
         LocalDateTime now = LocalDateTime.now();
         String countdown = court.getCountdown();
         LocalTime time = LocalTime.parse(countdown);
@@ -52,5 +57,6 @@ public class CourtsServiceImpl implements CourtsService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         court.setCountdown(result.format(formatter));
         courtMapper.setNewCourt(court);
+        return court;
     }
 }

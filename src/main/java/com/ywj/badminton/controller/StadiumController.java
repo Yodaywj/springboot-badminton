@@ -2,6 +2,7 @@ package com.ywj.badminton.controller;
 
 import com.ywj.badminton.model.Stadium;
 import com.ywj.badminton.model.User;
+import com.ywj.badminton.service.MemberService;
 import com.ywj.badminton.service.StadiumService;
 import com.ywj.badminton.utils.ResultMessage;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +17,8 @@ import java.util.UUID;
 public class StadiumController {
     @Resource
     private StadiumService stadiumService;
+    @Resource
+    private MemberService memberService;
     private final ObjectMapper mapper = new ObjectMapper();
     @PostMapping("/modify")
     public ResultMessage modify(@RequestBody Stadium stadium){
@@ -38,6 +41,7 @@ public class StadiumController {
     public ResultMessage getOriginalData(@PathVariable String id){
         try {
             stadiumService.delete(id);
+            memberService.deleteAll(id);
             return ResultMessage.success("删除成功");
         }catch (Exception e){
             return ResultMessage.failure("删除失败");
@@ -70,8 +74,14 @@ public class StadiumController {
     }
     @GetMapping("/getStadium/{id}")
     public ResultMessage getStadium(@PathVariable String id){
-        ResultMessage resultMessage = new ResultMessage();
-        resultMessage.setOther("stadium",stadiumService.getStadium(id));
-        return resultMessage;
+        Stadium stadium = stadiumService.getStadium(id);
+        if (stadium == null){
+            return ResultMessage.failure("场地已注销");
+        }else {
+            ResultMessage resultMessage = new ResultMessage();
+            resultMessage.setResult(true);
+            resultMessage.setOther("stadium",stadium);
+            return resultMessage;
+        }
     }
 }

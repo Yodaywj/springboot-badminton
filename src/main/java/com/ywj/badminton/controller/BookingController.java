@@ -29,8 +29,6 @@ public class BookingController {
     }
     @GetMapping("/filter")
     public ResultMessage filter(String stadiumName,int courtNumber,String province, String city){
-        System.out.println(province);
-        System.out.println(stadiumName);
         List<Stadium> stadiums = bookingService.filter(stadiumName,courtNumber,province,city);
         ResultMessage resultMessage = ResultMessage.success("筛选成功");
         resultMessage.setOther("stadiums",stadiums);

@@ -30,4 +30,9 @@ public class MemberServiceImpl implements MemberService {
     public void add(Member member) {
         memberMapper.add(member);
     }
+
+    @Override
+    public void deleteAll(String stadiumId) {
+
+    }
 }

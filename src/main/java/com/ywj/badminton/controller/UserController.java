@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ywj.badminton.model.User;
 import com.ywj.badminton.service.UserService;
+import com.ywj.badminton.utils.JwtUtils;
 import com.ywj.badminton.utils.ResultMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/user")
@@ -34,10 +36,16 @@ public class UserController {
             String username = node.get("username").asText();
             String password = node.get("password").asText();
             User user = userService.login(username,password);
-            session.setAttribute("user",user);
-            ResultMessage resultMessage = ResultMessage.success("登录成功");
-            resultMessage.setOther("nickname",user.getNickname());
-            return resultMessage;
+            if (user != null){
+                ResultMessage resultMessage = ResultMessage.success("登录成功");
+                session.setAttribute("user",user);
+                String jwt = JwtUtils.generateJwt(ResultMessage.data("user",user));
+                resultMessage.setOther("jwt",jwt);
+                resultMessage.setOther("nickname",user.getNickname());
+                return resultMessage;
+            }else
+                return ResultMessage.failure("登录失败");
+
         }catch (Exception e){
             return ResultMessage.failure("登录失败");
         }
@@ -82,6 +90,7 @@ public class UserController {
         }catch (Exception e){
             return ResultMessage.failure("编辑失败");
         }
+
     }
 //    @GetMapping("/captchaForResetting")
 //    public ResultMessage captchaForResetting(String username,String mail){

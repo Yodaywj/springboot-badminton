@@ -26,6 +26,9 @@
     <delete id="delete">
         delete from member where member_name=#{memberName} and stadium_id=#{stadiumId}
     </delete>
+    <delete id="deleteAll">
+        delete from member where stadium_id=#{stadiumId}
+    </delete>
     <select id="show" resultType="Member">
         select member_name,stadium_id,balance,expired_time,level,start_time,remarks from member where stadium_id = #{stadiumId};
     </select>
