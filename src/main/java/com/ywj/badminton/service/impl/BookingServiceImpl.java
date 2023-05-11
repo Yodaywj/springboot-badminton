@@ -25,8 +25,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Stadium> filter(String stadiumName,int courtNumber,String province, String city) {
-        return bookingMapper.filter(stadiumName,courtNumber,province,city);
+    public List<Stadium> filter(String stadiumName,int courtNumber,String province, String city,String stadiumId) {
+        return bookingMapper.filter(stadiumName,courtNumber,province,city,stadiumId);
     }
 
     @Override

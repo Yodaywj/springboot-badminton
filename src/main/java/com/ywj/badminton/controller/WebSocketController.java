@@ -3,17 +3,17 @@ package com.ywj.badminton.controller;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-import org.springframework.stereotype.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@ServerEndpoint(value = "/chat/{username}")
+@ServerEndpoint(value = "/chat/{username}/{nickname}/{uuid}")
 @Component
 public class WebSocketController {
     private static final Logger log = LoggerFactory.getLogger(WebSocketController.class);
@@ -25,29 +25,29 @@ public class WebSocketController {
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session, @PathParam("username") String username) {
-        sessionMap.put(username, session);
+    public void onOpen(Session session, @PathParam("username") String username, @PathParam("nickname") String nickname,@PathParam("uuid") String uuid) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.set("username", username);
+        jsonObject.set("nickname", nickname);
+        jsonObject.set("uuid", uuid);
+        sessionMap.put(JSONUtil.toJsonStr(jsonObject), session);
         log.info("有新用户加入，username={}, 当前在线人数为：{}", username, sessionMap.size());
-        JSONObject result = new JSONObject();
-        JSONArray array = new JSONArray();
-        result.set("users", array);
-        for (Object key : sessionMap.keySet()) {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.set("username", key);
-            // {"username", "zhang", "username": "admin"}
-            array.add(jsonObject);
-        }
-//        {"users": [{"username": "zhang"},{ "username": "admin"}]}
-        sendAllMessage(JSONUtil.toJsonStr(result));  // 后台发送消息给所有的客户端
+        sendUsers();
     }
     /**
      * 连接关闭调用的方法
      */
     @OnClose
-    public void onClose(Session session, @PathParam("username") String username) {
-        sessionMap.remove(username);
+    public void onClose(Session session, @PathParam("username") String username,@PathParam("nickname") String nickname,@PathParam("uuid") String uuid) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.set("username", username);
+        jsonObject.set("nickname", nickname);
+        jsonObject.set("uuid", uuid);
+        sessionMap.remove(JSONUtil.toJsonStr(jsonObject));
+        sendUsers();
         log.info("有一连接关闭，移除username={}的用户session, 当前在线人数为：{}", username, sessionMap.size());
     }
+
     /**
      * 收到客户端消息后调用的方法
      * 后台收到客户端发送过来的消息
@@ -105,5 +105,18 @@ public class WebSocketController {
         } catch (Exception e) {
             log.error("服务端发送消息给客户端失败", e);
         }
+    }
+    private void sendUsers() {
+        JSONObject result = new JSONObject();
+        JSONArray array = new JSONArray();
+        result.set("users", array);
+        for (Object key : sessionMap.keySet()) {
+            JSONObject jsonObject = new JSONObject();
+            JSONObject user = JSONUtil.parseObj(key);
+            jsonObject.set("username", user.getStr("username"));
+            jsonObject.set("nickname", user.getStr("nickname"));
+            array.add(jsonObject);
+        }
+        sendAllMessage(JSONUtil.toJsonStr(result));
     }
 }

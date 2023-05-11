@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywj.badminton.mapper.BookmarkMapper">
+    <insert id="addBookmark">
+        INSERT INTO bookmark (username,stadium_id) VALUES (#{username},#{stadiumId});
+    </insert>
+    <delete id="deleteBookmark">
+        DELETE FROM bookmark WHERE username = #{username} AND stadium_id = #{stadiumId};
+    </delete>
+    <select id="getBookmarks" resultType="java.lang.String">
+        SELECT stadium_id FROM bookmark where username = #{username};
+    </select>
+    <select id="getMarkedStadiums" resultType="com.ywj.badminton.model.Stadium">
+        SELECT stadium.id,stadium_name,province,city,court_number,address,phone,remarks,owner,username,bookmark.id
+        FROM stadium INNER JOIN bookmark
+        ON stadium.id = bookmark.stadium_id
+        WHERE username = #{username}
+        ORDER BY bookmark.id DESC;
+    </select>
+</mapper>

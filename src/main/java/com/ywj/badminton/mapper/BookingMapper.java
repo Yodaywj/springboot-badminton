@@ -8,7 +8,7 @@ import java.util.List;
 public interface BookingMapper {
     List<Stadium> enquiry(int size, int offset);
     long countAll();
-    List<Stadium> filter(String stadiumName,int courtNumber,String province, String city);
+    List<Stadium> filter(String stadiumName,int courtNumber,String province, String city, String stadiumId);
     void bookCourt(Booking booking);
     List<Booking> myBooking(String username);
     void deleteBooking(String id);

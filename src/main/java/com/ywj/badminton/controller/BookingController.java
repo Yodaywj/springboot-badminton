@@ -28,8 +28,8 @@ public class BookingController {
         return resultMessage;
     }
     @GetMapping("/filter")
-    public ResultMessage filter(String stadiumName,int courtNumber,String province, String city){
-        List<Stadium> stadiums = bookingService.filter(stadiumName,courtNumber,province,city);
+    public ResultMessage filter(String stadiumName,int courtNumber,String province, String city,String stadiumId){
+        List<Stadium> stadiums = bookingService.filter(stadiumName,courtNumber,province,city,stadiumId);
         ResultMessage resultMessage = ResultMessage.success("筛选成功");
         resultMessage.setOther("stadiums",stadiums);
         return resultMessage;

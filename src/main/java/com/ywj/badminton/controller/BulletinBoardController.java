@@ -1,11 +1,13 @@
 package com.ywj.badminton.controller;
 
 import com.ywj.badminton.model.Bulletin;
+import com.ywj.badminton.model.User;
 import com.ywj.badminton.service.BulletinBoardService;
 import com.ywj.badminton.utils.ResultMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,6 +16,9 @@ import java.util.Date;
 public class BulletinBoardController {
     @Resource
     private BulletinBoardService bulletinBoardService;
+
+    private int count = 0;
+    private int view = 0;
 
     @DeleteMapping("/delete/{id}")
     public ResultMessage delete(@PathVariable int id){
@@ -46,10 +51,18 @@ public class BulletinBoardController {
         }
     }
     @GetMapping ("/show")
-    public ResultMessage show(){
+    public ResultMessage show(HttpSession session){
+        User user = (User) session.getAttribute("user");
+        if (user!=null && user.getPrivilege().equals("root")){
+            view += 1;
+        }else {
+            count += 1;
+        }
         try {
             ResultMessage resultMessage = new ResultMessage();
             resultMessage.setOther("bulletin",bulletinBoardService.show());
+            resultMessage.setOther("count",count);
+            resultMessage.setOther("view",view);
             resultMessage.setResult(true);
             return resultMessage;
         }catch (Exception e){

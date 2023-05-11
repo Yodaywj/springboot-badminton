@@ -34,6 +34,9 @@
         <if test="courtNumber != 0">
             and court_number = #{courtNumber}
         </if>
+        <if test='!stadiumId.equals("null")'>
+            and id = #{stadiumId}
+        </if>
         and stadium_name like '%${stadiumName}%'
     </select>
     <select id="myBooking" resultType="com.ywj.badminton.model.Booking">
