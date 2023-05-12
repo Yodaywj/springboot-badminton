@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/bookmark")
 public class BookmarkController {
     @Resource
-    BookmarkService bookmarkService;
+    private BookmarkService bookmarkService;
     @GetMapping("/getBookmarks/{username}")
     public ResultMessage getBookmarks(@PathVariable String username){
         List<String> bookmarks = bookmarkService.getBookmarks(username);

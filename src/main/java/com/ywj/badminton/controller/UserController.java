@@ -3,6 +3,7 @@ package com.ywj.badminton.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ywj.badminton.model.User;
+import com.ywj.badminton.service.MyMailService;
 import com.ywj.badminton.service.UserService;
 import com.ywj.badminton.utils.JwtUtils;
 import com.ywj.badminton.utils.ResultMessage;
@@ -17,6 +18,8 @@ import java.util.Random;
 public class UserController {
     @Resource
     private UserService userService;
+    @Resource
+    private MyMailService myMailService;
     private final ObjectMapper mapper = new ObjectMapper();
     @PostMapping("/register")
     public ResultMessage register(@RequestBody User newUser) {
@@ -78,6 +81,7 @@ public class UserController {
     @PatchMapping("/editUser")
     public ResultMessage editUser(@RequestBody User user,HttpSession session){
         try {
+            System.out.println(user);
             userService.editUser(user);
             User current = (User) session.getAttribute("user");
             User newUser = userService.login(current.getUsername(), current.getPassword());
@@ -92,9 +96,17 @@ public class UserController {
         }
 
     }
-//    @GetMapping("/captchaForResetting")
-//    public ResultMessage captchaForResetting(String username,String mail){
-//
-//    }
+    @GetMapping("/getCaptcha")
+    public void getCaptcha(String mail,String type){
+        myMailService.generateCode(mail,type);
+    }
+    @GetMapping("/validateCaptcha")
+    public ResultMessage validateCaptcha(String mail,String type,String code){
+        return ResultMessage.data("state",myMailService.validateCode(mail,type,code));
+    }
+    @PatchMapping("/resetPassword")
+    public void resetPassword(String mail,String password){
+        userService.resetPassword(mail,password);
+    }
 }
 

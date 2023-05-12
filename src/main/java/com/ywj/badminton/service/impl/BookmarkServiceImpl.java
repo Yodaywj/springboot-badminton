@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class BookmarkServiceImpl implements BookmarkService {
     @Resource
-    BookmarkMapper bookmarkMapper;
+    private BookmarkMapper bookmarkMapper;
     @Override
     public List<String> getBookmarks(String username) {
         return bookmarkMapper.getBookmarks(username);

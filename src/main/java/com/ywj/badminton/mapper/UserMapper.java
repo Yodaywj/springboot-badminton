@@ -8,4 +8,5 @@ public interface UserMapper {
     User login(String username,String password);
     User showUserInfo(String username);
     void editUser(User user);
+    void resetPassword(String mail,String password);
 }

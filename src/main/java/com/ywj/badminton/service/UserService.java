@@ -14,5 +14,5 @@ public interface UserService {
 
     User showUserInfo(String username);
     void editUser(User user);
-    String captchaForResetting(String username,String mail);
+    void resetPassword(String mail,String password);
 }

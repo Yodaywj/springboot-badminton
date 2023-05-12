@@ -14,6 +14,10 @@
                                 gender = #{gender}
                                 where username = #{username};
     </update>
+    <update id="resetPassword">
+        UPDATE user_account SET password = #{password}
+        WHERE mail = #{mail};
+    </update>
     <select id="login" resultType="User">
         select mail,password,username,nickname,phone,gender,privilege from user_account where username = #{username} and password = #{password}
     </select>

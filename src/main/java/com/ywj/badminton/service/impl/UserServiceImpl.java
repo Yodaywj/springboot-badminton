@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String captchaForResetting(String username, String mail) {
-        return null;
+    public void resetPassword(String mail,String password) {
+        userMapper.resetPassword(mail,password);
     }
 }
