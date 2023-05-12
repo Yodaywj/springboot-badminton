@@ -5,18 +5,24 @@ import com.ywj.badminton.model.Booking;
 import com.ywj.badminton.model.Stadium;
 import com.ywj.badminton.model.User;
 import com.ywj.badminton.service.BookingService;
+import com.ywj.badminton.service.MyMailService;
 import com.ywj.badminton.utils.ResultMessage;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @RestController
 @RequestMapping("/booking")
 public class BookingController {
+    private final ExecutorService executor = Executors.newFixedThreadPool(3);
     @Resource
     private BookingService bookingService;
+    @Resource
+    MyMailService myMailService;
     @GetMapping("/enquiry")
     public ResultMessage enquiry(int page,int size){
         int offset = size * (page - 1);
@@ -38,6 +44,18 @@ public class BookingController {
     public ResultMessage bookCourt(@RequestBody Booking booking){
         try {
             bookingService.bookCourt(booking);
+            String stadiumId = booking.getStadiumId();
+            String username = booking.getUsername();
+            String owner = myMailService.getStadiumOwner(stadiumId);
+            String mail = myMailService.getMail(owner);
+            executor.execute(()->{
+                myMailService.sendMail(
+                        "yangwenjun.zj@qq.com",
+                        mail,
+                        "yoda20001231@gmail.com",
+                        "新预订通知",
+                        username+"预订了您的场地，请及时处理");
+            });
             return ResultMessage.success("预订成功");
         }catch (Exception e){
             return ResultMessage.failure("预订失败");
@@ -65,6 +83,16 @@ public class BookingController {
     @PatchMapping("/setBooking")
     public ResultMessage setBooking(@RequestParam String id,@RequestParam int courtId,@RequestParam String state){
         bookingService.setBooking(id,courtId,state);
+        String username = id.substring(0, id.length() - 37);
+        String mail = myMailService.getMail(username);
+        executor.execute(()->{
+            myMailService.sendMail(
+                    "yangwenjun.zj@qq.com",
+                    mail,
+                    "yoda20001231@gmail.com",
+                    "预订状态变更",
+                    username+"，场馆管理员处理了您的预订订单，请及时查看");
+        });
         return ResultMessage.success("设置成功");
     }
     @PatchMapping("/hideBooking/{id}")

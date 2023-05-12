@@ -48,4 +48,12 @@
     <select id="bookingsForCourt" resultType="com.ywj.badminton.model.Booking">
         select id,time,remarks,duration,state,username from booking where stadium_id = #{stadiumId} and court_id = #{courtId};
     </select>
+    <select id="getStadiumOwner" resultType="java.lang.String">
+        SELECT owner FROM stadium
+        WHERE stadium_id = #{stadiumId};
+    </select>
+    <select id="getMail" resultType="java.lang.String">
+        SELECT mail FROM user_account
+        WHERE username = #{username};
+    </select>
 </mapper>
