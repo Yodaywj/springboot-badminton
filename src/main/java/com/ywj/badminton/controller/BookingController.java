@@ -54,10 +54,11 @@ public class BookingController {
                         mail,
                         "yoda20001231@gmail.com",
                         "新预订通知",
-                        username+"预订了您的场地，请及时处理");
+                        username+"预订了您的编号为："+stadiumId+"的场地，请及时处理");
             });
             return ResultMessage.success("预订成功");
         }catch (Exception e){
+            e.printStackTrace();
             return ResultMessage.failure("预订失败");
         }
     }
@@ -84,6 +85,7 @@ public class BookingController {
     public ResultMessage setBooking(@RequestParam String id,@RequestParam int courtId,@RequestParam String state){
         bookingService.setBooking(id,courtId,state);
         String username = id.substring(0, id.length() - 37);
+        String stadiumId = id.substring(id.length() - 36);
         String mail = myMailService.getMail(username);
         executor.execute(()->{
             myMailService.sendMail(
@@ -91,7 +93,7 @@ public class BookingController {
                     mail,
                     "yoda20001231@gmail.com",
                     "预订状态变更",
-                    username+"，场馆管理员处理了您的预订订单，请及时查看");
+                    username+"，您有新的预订订单变化，请及时查看");
         });
         return ResultMessage.success("设置成功");
     }

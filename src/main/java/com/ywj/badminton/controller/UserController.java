@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Random;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user")
@@ -107,6 +108,29 @@ public class UserController {
     @PatchMapping("/resetPassword")
     public void resetPassword(String mail,String password){
         userService.resetPassword(mail,password);
+    }
+    @PostMapping("/quickLogin")
+    public ResultMessage quickLogin (String mail,HttpSession session){
+        User user = userService.findUserByMail(mail);
+        try {
+            if (user == null){
+                User newUser = new User();
+                newUser.setMail(mail);
+                newUser.setUsername(mail);
+                newUser.setNickname(mail);
+                newUser.setPassword(UUID.randomUUID().toString());
+                newUser.setGender("male");
+                newUser.setPrivilege("general");
+                userService.register(newUser);
+                session.setAttribute("user",newUser);
+            }else {
+                session.setAttribute("user",user);
+            }
+            return ResultMessage.success("登录成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultMessage.failure("登录失败");
+        }
     }
 }
 

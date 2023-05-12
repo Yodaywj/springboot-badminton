@@ -42,4 +42,9 @@ public class UserServiceImpl implements UserService {
     public void resetPassword(String mail,String password) {
         userMapper.resetPassword(mail,password);
     }
+
+    @Override
+    public User findUserByMail(String mail) {
+        return userMapper.findUserByMail(mail);
+    }
 }

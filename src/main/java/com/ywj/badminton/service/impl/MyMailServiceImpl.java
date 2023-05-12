@@ -36,6 +36,9 @@ public class MyMailServiceImpl implements MyMailService {
         redisTemplate.opsForValue().set(mail+type,code,5, TimeUnit.MINUTES);
         String CHType = "";
         switch (type) {
+            case "login":
+                CHType = "登录";
+                break;
             case "register":
                 CHType = "注册";
                 break;

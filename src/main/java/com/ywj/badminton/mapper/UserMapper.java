@@ -9,4 +9,5 @@ public interface UserMapper {
     User showUserInfo(String username);
     void editUser(User user);
     void resetPassword(String mail,String password);
+    User findUserByMail(String mail);
 }

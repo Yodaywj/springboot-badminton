@@ -24,4 +24,7 @@
     <select id="showUserInfo" resultType="User">
         select mail,password,username,nickname,phone,gender,privilege from user_account where username = #{username}
     </select>
+    <select id="findUserByMail" resultType="com.ywj.badminton.model.User">
+        SELECT mail,password,username,nickname,phone,gender,privilege FROM user_account WHERE mail = #{mail};
+    </select>
 </mapper>
