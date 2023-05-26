@@ -11,4 +11,6 @@ public class Bulletin {
     private String title;
 
     private String time;
+
+    private int weight;
 }

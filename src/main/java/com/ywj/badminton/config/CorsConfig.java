@@ -13,7 +13,8 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
         //允许白名单域名进行跨域调用
         config.addAllowedOriginPattern("*yangwenjun.cn*");
-//        config.addAllowedOriginPattern("*");
+        config.addAllowedOriginPattern("*hiywj.com*");
+        config.addAllowedOriginPattern("*");
         //允许跨越发送cookie
         config.setAllowCredentials(true);
         //放行全部原始头信息

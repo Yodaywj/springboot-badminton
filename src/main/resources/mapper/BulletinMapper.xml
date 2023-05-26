@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ywj.badminton.mapper.BulletinMapper">
     <insert id="add">
-        insert into bulletin_board (id, title, content, time) VALUES (DEFAULT, DEFAULT, DEFAULT, #{time});
+        insert into bulletin_board (id, title, content, time, weight) VALUES (DEFAULT, DEFAULT, DEFAULT, #{time},0);
     </insert>
     <update id="save" parameterType="Bulletin">
-        update bulletin_board set content = #{content}, title = #{title} WHERE id = #{id};
+        update bulletin_board set content = #{content}, title = #{title}, weight = #{weight} WHERE id = #{id};
     </update>
     <delete id="delete">
         delete from bulletin_board where id = #{id}
     </delete>
     <select id="show" resultType="Bulletin">
-        select id, title, content, time from bulletin_board order by id DESC;
+        select id, title, content, weight, time from bulletin_board order by id Desc;
     </select>
 </mapper>
