@@ -15,7 +15,7 @@ public class CorsConfig {
         config.addAllowedOriginPattern("*yangwenjun.cn*");
         config.addAllowedOriginPattern("*hiywj.com*");
         config.addAllowedOriginPattern("*");
-        //允许跨越发送cookie
+        //允许跨越发送cookie-
         config.setAllowCredentials(true);
         //放行全部原始头信息
         config.addAllowedHeader("*");

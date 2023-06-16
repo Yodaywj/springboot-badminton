@@ -5,8 +5,10 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
@@ -16,6 +18,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint(value = "/chat/{username}/{nickname}/{uuid}")
 @Component
 public class WebSocketController {
+    @Resource
+    private RedisTemplate<String,String> redisTemplate;
     private static final Logger log = LoggerFactory.getLogger(WebSocketController.class);
     /**
      * 记录当前在线连接数
