@@ -21,7 +21,7 @@ spring:
     host: smtp.qq.com
     port: 465
     username: yangwenjun.zj@qq.com
-    password: rcwpwghsxauqbhfb
+    password:
     default-encoding: UTF-8
     properties:
       mail:
@@ -32,12 +32,12 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.96.41.78:3306/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://:3306/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
-    password: Ywj20001231!
+    password:
 
   redis:
-    host: 8.217.34.185
+    host:
     port: 6379
     database: 0
     lettuce:
