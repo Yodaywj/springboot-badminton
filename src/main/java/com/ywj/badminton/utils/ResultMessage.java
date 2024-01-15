@@ -1,9 +1,11 @@
 package com.ywj.badminton.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.HashMap;
 
 public class ResultMessage extends HashMap<String, Object> {
-
     public static ResultMessage success(String message){
         ResultMessage response = new ResultMessage();
         response.setResult(Boolean.TRUE);

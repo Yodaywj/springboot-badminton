@@ -1,5 +1,6 @@
 package com.ywj.badminton.service;
 
+import com.ywj.badminton.model.Avatar;
 import com.ywj.badminton.model.User;
 
 import javax.servlet.http.HttpSession;
@@ -16,4 +17,6 @@ public interface UserService {
     void editUser(User user);
     void resetPassword(String mail,String password);
     User findUserByMail(String mail);
+    void uploadAvatar(Avatar avatar);
+    Avatar getAvatar(String id);
 }

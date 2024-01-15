@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class MyMailServiceImpl implements MyMailService {
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
     @Resource
     private RedisTemplate<String,String> redisTemplate;
     @Resource
@@ -28,8 +31,19 @@ public class MyMailServiceImpl implements MyMailService {
         smm.setCc(cc);
         smm.setSubject(subject);
         smm.setText(text);
-        javaMailSender.send(smm);
+        executorService.submit(new MailTask(smm));
     }
+    public class MailTask implements Runnable {
+        private SimpleMailMessage smm;
+        public MailTask(SimpleMailMessage smm){
+            this.smm = smm;
+        }
+        @Override
+        public void run() {
+            javaMailSender.send(smm);
+        }
+    }
+
     @Override
     public void generateCode(String mail,String type){
         String code = Code.generateCode(6);

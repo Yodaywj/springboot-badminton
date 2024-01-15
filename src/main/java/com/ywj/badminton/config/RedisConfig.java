@@ -46,7 +46,6 @@ public class RedisConfig extends CachingConfigurerSupport {
                 .disableCachingNullValues()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
-
         return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)
                 .transactionAware()
@@ -55,7 +54,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean
     @Override
     public CacheErrorHandler errorHandler() {
-        log.warn("Redis occur exception, use custom CacheErrorHandler to handle");
+        log.info("Redis occur exception, use custom CacheErrorHandler to handle");
         return new CacheErrorHandler() {
             @Override
             public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {

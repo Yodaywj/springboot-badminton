@@ -27,4 +27,10 @@
     <select id="findUserByMail" resultType="com.ywj.badminton.model.User">
         SELECT mail,password,username,nickname,phone,gender,privilege FROM user_account WHERE mail = #{mail};
     </select>
+    <select id="getAvatar" resultType="com.ywj.badminton.model.Avatar">
+        SELECT avatar_id,file_data,file_name,id FROM user_avatar WHERE id = #{id};
+    </select>
+    <update id="uploadAvatar" parameterType="avatar">
+        UPDATE user_avatar SET avatar_id = #{avatarId},file_data = #{fileData},file_name = #{fileName} WHERE id = #{id};
+    </update>
 </mapper>

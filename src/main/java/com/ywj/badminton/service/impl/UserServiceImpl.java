@@ -1,6 +1,7 @@
 package com.ywj.badminton.service.impl;
 
 import com.ywj.badminton.mapper.UserMapper;
+import com.ywj.badminton.model.Avatar;
 import com.ywj.badminton.model.User;
 import com.ywj.badminton.service.UserService;
 import org.springframework.stereotype.Service;
@@ -47,4 +48,10 @@ public class UserServiceImpl implements UserService {
     public User findUserByMail(String mail) {
         return userMapper.findUserByMail(mail);
     }
+    @Override
+    public void uploadAvatar(Avatar avatar){
+        userMapper.uploadAvatar(avatar);
+    };
+    @Override
+    public Avatar getAvatar(String id){return userMapper.getAvatar(id);}
 }

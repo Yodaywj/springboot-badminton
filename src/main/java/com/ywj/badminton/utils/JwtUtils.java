@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class JwtUtils {
     private static final String sighKey = "YangWenJun";
-    private static final Long expire = 43200000L;
+    private static final Long expire = 30*24*3600*1000L;
     public static String generateJwt(ResultMessage resultMessage){
         return Jwts.builder()
                 .addClaims(resultMessage)
@@ -19,7 +19,7 @@ public class JwtUtils {
     public static Claims parseJwt(String jwt){
         return Jwts.parser()
                 .setSigningKey(sighKey)
-                .parseClaimsJwt(jwt)
+                .parseClaimsJws(jwt)
                 .getBody();
     }
 }

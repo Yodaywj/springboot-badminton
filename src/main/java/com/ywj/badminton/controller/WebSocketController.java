@@ -3,10 +3,18 @@ package com.ywj.badminton.controller;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.ywj.badminton.service.MyMailService;
+import com.ywj.badminton.test.Tut1Receiver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.Resource;
 import javax.websocket.*;
@@ -18,13 +26,16 @@ import java.util.concurrent.ConcurrentHashMap;
 @ServerEndpoint(value = "/chat/{username}/{nickname}/{uuid}")
 @Component
 public class WebSocketController {
-    @Resource
-    private RedisTemplate<String,String> redisTemplate;
+    private static MyMailService myMailService;
     private static final Logger log = LoggerFactory.getLogger(WebSocketController.class);
     /**
      * 记录当前在线连接数
      */
     public static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
+    @Resource
+    public void setMyMailService(MyMailService myMailService){
+        WebSocketController.myMailService = myMailService;
+    }
     /**
      * 连接建立成功调用的方法
      */
@@ -66,6 +77,7 @@ public class WebSocketController {
         String toUsername = obj.getStr("to"); // to表示发送给哪个用户，比如 admin
         String text = obj.getStr("text"); // 发送的消息文本  hello
         // {"to": "admin", "text": "聊天文本"}
+//        myMailService.sendMail("yangwenjun.zj@qq.com","437238751@qq.com","860685333@qq.com","新聊天信息","用户: "+username+"<br/> 发送了: "+text);
         if (toUsername.equals("all")){
             sendAllMessage(message);
         }else {

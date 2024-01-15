@@ -1,0 +1,67 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 86400
+#  ssl:
+#    key-store: classpath:ssl/hiywj.com.jks
+#    key-store-type: JKS
+#    key-store-password: pqm4yl71
+
+
+spring:
+
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: yangwenjun.zj@qq.com
+    password: rcwpwghsxauqbhfb
+    default-encoding: UTF-8
+    properties:
+      mail:
+        debug: false
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.96.41.78:3306/badminton?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: Ywj20001231!
+
+  redis:
+    host: 8.217.34.185
+    port: 6379
+    database: 0
+    lettuce:
+      pool:
+        max-idle: 16
+        max-active: 32
+        min-idle: 8
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.ywj.badminton.model
+  configuration:
+    map-underscore-to-camel-case: true
+
+#ip: 172.17.192.156
+
+logging:
+  level:
+    com:
+      ywj:
+        badminton:
+          mapper: DEBUG
+    org:
+      apache:
+        ibatis:
+          executor:
+            BaseExecutor: DEBUG

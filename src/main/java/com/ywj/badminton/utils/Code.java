@@ -14,4 +14,19 @@ public class Code {
 
         return codeBuilder.toString();
     }
+    public static String generateCode(int length, boolean capital){
+        StringBuilder randomString = new StringBuilder();
+        Random random = new Random();
+        String characters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        if (!capital){
+            characters = "0123456789abcdefghijklmnopqrstuvwxyz";
+        }
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(characters.length());
+            randomString.append(characters.charAt(randomIndex));
+        }
+
+        return randomString.toString();
+    }
 }
