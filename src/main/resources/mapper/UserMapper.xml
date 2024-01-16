@@ -28,9 +28,9 @@
         SELECT mail,password,username,nickname,phone,gender,privilege FROM user_account WHERE mail = #{mail};
     </select>
     <select id="getAvatar" resultType="com.ywj.badminton.model.Avatar">
-        SELECT avatar_id,file_data,file_name,id FROM user_avatar WHERE id = #{id};
+        SELECT avatar_id,file_data,file_name,id, file_type FROM user_avatar WHERE id = #{id};
     </select>
     <update id="uploadAvatar" parameterType="avatar">
-        UPDATE user_avatar SET avatar_id = #{avatarId},file_data = #{fileData},file_name = #{fileName} WHERE id = #{id};
+        UPDATE user_avatar SET avatar_id = #{avatarId},file_data = #{fileData},file_name = #{fileName} file_type =#{fileType} WHERE id = #{id};
     </update>
 </mapper>

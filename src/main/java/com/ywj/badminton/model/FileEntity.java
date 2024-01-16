@@ -11,4 +11,6 @@ public class FileEntity {
     private String fileName;
 
     private byte[] fileData;
+
+    private String fileType;
 }
