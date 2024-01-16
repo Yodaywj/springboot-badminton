@@ -8,13 +8,16 @@ import com.ywj.badminton.model.FileEntity;
 import com.ywj.badminton.model.User;
 import com.ywj.badminton.service.MyMailService;
 import com.ywj.badminton.service.UserService;
-import com.ywj.badminton.test.Tut1Sender;
+//import com.ywj.badminton.test.Tut1Sender;
 import com.ywj.badminton.utils.Code;
 import com.ywj.badminton.utils.JwtUtils;
 import com.ywj.badminton.utils.ResultMessage;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,9 +27,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -41,8 +44,8 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    @Resource
-    private Tut1Sender tut1Sender;
+//    @Resource
+//    private Tut1Sender tut1Sender;
     @Resource
     private RedisTemplate<String,String> redisTemplate;
     @Resource
@@ -104,10 +107,8 @@ public class UserController {
             if (user == null){
                 throw new Exception();
             }
-            Avatar avatar = userService.getAvatar(user.getUsername());
             ResultMessage resultMessage = ResultMessage.success("已登录");
             resultMessage.setOther("user",user);
-            resultMessage.setOther("avatar",avatar);
             return resultMessage;
         }catch (Exception e){
             return ResultMessage.failure("未登录或登录超时");
@@ -194,5 +195,11 @@ public class UserController {
         } catch (IOException e) {
             return ResultMessage.failure("上传失败");
         }
+    }
+    @GetMapping("/getAvatar/{username}")
+    public ResponseEntity<byte[]> getAvatar (@PathVariable String username) {
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)  // 设置响应类型
+                .body(userService.getAvatar(username).getFileData());  // 设置响应体
     }
 }

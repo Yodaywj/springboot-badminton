@@ -1,6 +1,5 @@
 package com.ywj.badminton;
 
-import com.ywj.badminton.test.RabbitAmqpTutorialsRunner;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
